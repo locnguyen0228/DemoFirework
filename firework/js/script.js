@@ -656,33 +656,34 @@ class Shell {
     };
 
     // ──── HEART ──── (đã sửa hướng lên trên)
-    if (this.heart) {
-      const heartPoints = 72;
-      const heartScale = this.spreadSize * 0.52;
+ if (this.heart) {
+  const heartPoints = 72;
+  const heartScale = this.spreadSize * 0.52;
 
-      for (let i = 0; i < heartPoints; i++) {
-        const t = (i / heartPoints) * PI_2 - Math.PI / 2; // pha -90° để hướng lên
+  for (let i = 0; i < heartPoints; i++) {
+    let t = (i / heartPoints) * PI_2;
+    t -= Math.PI / 2;                     // ← sửa ở đây để đỉnh lên trên
 
-        const tx = 16 * Math.pow(Math.sin(t), 3);
-        const ty = -(
-          13 * Math.cos(t)
-          - 5 * Math.cos(2 * t)
-          - 2 * Math.cos(3 * t)
-          - Math.cos(4 * t)
-        );
+    const tx = 16 * Math.pow(Math.sin(t), 3);
+    const ty = -(
+      13 * Math.cos(t)
+      - 5 * Math.cos(2 * t)
+      - 2 * Math.cos(3 * t)
+      - Math.cos(4 * t)
+    );
 
-        const angle = Math.atan2(ty, tx);
-        const dist = Math.hypot(tx, ty) / 16;
+    const angle = Math.atan2(ty, tx);
+    const dist = Math.hypot(tx, ty) / 16;
 
-        const speedMult = dist * 1.42; // điều chỉnh độ phồng
+    const speedMult = dist * 1.42;
 
-        starFactory(angle, speedMult);
-      }
+    starFactory(angle, speedMult);
+  }
 
-      if (Math.random() < 0.62) {
-        createBurst(Math.round(this.starCount * 0.26), starFactory);
-      }
-    }
+  if (Math.random() < 0.62) {
+    createBurst(Math.round(this.starCount * 0.26), starFactory);
+  }
+}
     // ────────────────────────────────────────────────
 
     else if (this.ring) {
